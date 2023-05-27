@@ -1,20 +1,37 @@
 import "./TodoItem.css";
-function TodoItem(props) {
+import { useTaskContext } from "../../Context/TaskContext";
+
+
+
+function TodoItem() {
+
+  const {onDelete, onCheck, searchTodos} = useTaskContext() 
+
   return (
-    <li className="TodoItem">
+    <>
+      { searchTodos.map((item) => 
+      <div key={item.text}>
+
+      <li className="TodoItem">
       <span
-        className={`Icon Icon-check ${props.completed && "Icon-check--active"}`}
-        onClick={props.onCheck}
+        className={`Icon Icon-check ${item.completed && "Icon-check--active"}`}
+        onClick={onCheck}
       >
         ✓
       </span>
-      <p className={`TodoItem-p ${props.completed && "TodoItem-p--complete"}`}>
-        {props.text}
+      <p className={`TodoItem-p ${item.completed && "TodoItem-p--complete"}`}>
+        {item.text}
       </p>
-      <span className="Icon Icon-delete" onClick={props.onDelete}>
+      <span className="Icon Icon-delete" onClick={onDelete}>
         ✕
       </span>
     </li>
+    </div>
+)}
+    </>
+  
+    
+    
   );
 }
 export { TodoItem };
